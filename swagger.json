@@ -1,0 +1,356 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "Demo API",
+      "version": "1.0.0"
+    },
+    "basePath": "/basic_api",
+    "paths": {
+      "/users/{id}" : {
+        "get": {
+          "description": "Get user by id",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "JSON data for the api",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "User returned"
+            },
+            "400": {
+              "description": "Invalid request data"
+            }
+          }
+        }
+      },
+      "/users": {
+        "post": {
+          "description": "Add new user",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "user data",
+              "in": "body",
+              "description": "JSON data for the api",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/UserData"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "User added"
+            },
+            "400": {
+              "description": "Invalid request data"
+            }
+          }
+        },
+        "get": {
+          "description": "Get users",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "filter",
+              "in": "query",
+              "description": "Filter the result",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Users list"
+            },
+            "400": {
+              "description": "Invalid request data"
+            }
+          }
+        }
+      },
+      "/tweets": {
+        "post": {
+          "description": "Add new tweet",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "tweet data",
+              "in": "body",
+              "description": "JSON data for the api",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/TweetData"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Tweet created"
+            },
+            "400": {
+              "description": "Invalid request data"
+            }
+          }
+        },
+        "get": {
+          "description": "Get tweets",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "filter",
+              "in": "query",
+              "description": "Filter the result",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Tweet list"
+            },
+            "400": {
+              "description": "Invalid request data"
+            }
+          }
+        }
+      },
+      "/followers/{followee_id}/{follower_id}" : {
+        "post": {
+          "description": "Follow user",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "followee_id",
+              "in": "path",
+              "description": "Followed user id",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "name": "follower_id",
+              "in": "path",
+              "description": "Following user id",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "User followed"
+            },
+            "400": {
+              "description": "Invalid request data"
+            }
+          }
+        },
+        "delete": {
+          "description": "Unfollow user",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "followee_id",
+              "in": "path",
+              "description": "Followed user id",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "name": "follower_id",
+              "in": "path",
+              "description": "Following user id",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "User followed"
+            },
+            "400": {
+              "description": "Invalid request data"
+            }
+          }
+        }
+      },
+      "/likes/{tweet_id}/{user_id}" : {
+        "post": {
+          "description": "Add like for tweet",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "tweet_id",
+              "in": "path",
+              "description": "Liked tweet id",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "name": "user_id",
+              "in": "path",
+              "description": "User id of the user who likes the tweet",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Tweet like added"
+            },
+            "400": {
+              "description": "Invalid request data"
+            }
+          }
+        },
+        "delete": {
+          "description": "Remove like",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "tweet_id",
+              "in": "path",
+              "description": "Tweet id",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "name": "user_id",
+              "in": "path",
+              "description": "User id for whom the like is removed",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Like removed"
+            },
+            "400": {
+              "description": "Invalid request data"
+            }
+          }
+        }
+      },
+      "/feeds/{user_id}" : {
+        "get": {
+          "description": "Get user feed",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "user_id",
+              "in": "path",
+              "description": "User id",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Feed returned",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FeedItemData"
+              }
+            }
+            },
+            "400": {
+              "description": "Invalid request data"
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "UserData": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "TweetData": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "integer"
+          }
+        }
+      },
+      "FeedItemData": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "postedBy": {
+            "type": "string"
+          },
+          "postedOn": {
+            "type": "string"
+          },
+          "numberOfLikes": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  }
